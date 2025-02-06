@@ -1,0 +1,30 @@
+﻿
+<h1 style="color: lightpink">Doctores</h1>
+
+<table class="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<td>IdHospital</td>
+			<td>IdDoctor</td>
+			<td>Apellido</td>
+			<td>Especialidad</td>
+			<td>Salario</td>
+			<td>Acciones</td>
+		</tr>
+	</thead>
+	
+	<tbody>
+		@foreach (Doctor doc in Model)
+		{
+			<tr>
+				<td>@doc.IdHospital</td>
+				<td>@doc.IdDoctor</td>
+				<td>@doc.Apellido</td>
+				<td>@doc.Especialidad</td>
+				<td>@doc.Salario</td>
+				<td><a asp-controller="Doctores" asp-action="Detalles" asp-route-iddoctor="@doc.IdDoctor" class="btn btn-warning">Detalle</a><a asp-controller="Doctores" asp-action="Delete" asp-route-iddoctor="@doc.IdDoctor" class="btn btn-danger">Eliminar</a></td>
+			</tr>
+		}
+	</tbody>
+	
+</table>
