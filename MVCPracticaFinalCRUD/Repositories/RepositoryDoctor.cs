@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
 using MVCPracticaFinalCRUD.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MVCPracticaFinalCRUD.Repositories
 {
@@ -16,7 +17,12 @@ namespace MVCPracticaFinalCRUD.Repositories
             SqlDataAdapter adDoc = new SqlDataAdapter(sql, connectionString);
             this.tablaDoctores = new DataTable();
             adDoc.Fill(this.tablaDoctores);
-           
+
+            //para consultas adonet
+            this.cn = new SqlConnection(connectionString);
+            this.com = new SqlCommand();
+            this.com.Connection = this.cn;
+
         }
 
         public List<Doctor> GetDoctores()
@@ -113,6 +119,22 @@ namespace MVCPracticaFinalCRUD.Repositories
                 doctores.Add(doctor);
             }
             return doctores;
+        }
+
+        public async Task UpdateDoctorAsync(int idHospital, int idDoctor, string apellido, string especialidad, int salario)
+        {
+            string sql = "update DOCTOR set HOSPITAL_COD=@idHospital, DOCTOR_NO=@idDoctor, APELLIDO=@apellido, ESPECIALIDAD=@especialidad, SALARIO=@salario where DOCTOR_NO=@idDoctor";
+            this.com.Parameters.AddWithValue("@idDoctor", idDoctor);
+            this.com.Parameters.AddWithValue("@idHospital", idHospital);
+            this.com.Parameters.AddWithValue("@apellido", apellido);
+            this.com.Parameters.AddWithValue("@especialidad", especialidad);
+            this.com.Parameters.AddWithValue("@salario", salario);
+            this.com.CommandType = CommandType.Text;
+            this.com.CommandText = sql;
+            await this.cn.OpenAsync();
+            await this.com.ExecuteNonQueryAsync();
+            await this.cn.CloseAsync();
+            this.com.Parameters.Clear();
         }
     }
     

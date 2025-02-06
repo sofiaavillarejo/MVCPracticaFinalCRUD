@@ -57,5 +57,17 @@ namespace MVCPracticaFinalCRUD.Controllers
 
         }
 
+        public IActionResult Update(int idDoctor)
+        {
+            Doctor doctor = this.repo.DetalleDoctor(idDoctor);
+            return View(doctor);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(Doctor doctor)
+        {
+            await this.repo.UpdateDoctorAsync(doctor.IdHospital, doctor.IdDoctor, doctor.Apellido, doctor.Especialidad, doctor.Salario);
+            return RedirectToAction("Index");
+        }
+
     }
 }

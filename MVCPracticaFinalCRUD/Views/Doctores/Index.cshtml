@@ -22,7 +22,7 @@
 				<td>@doc.Apellido</td>
 				<td>@doc.Especialidad</td>
 				<td>@doc.Salario</td>
-				<td><a asp-controller="Doctores" asp-action="Detalles" asp-route-iddoctor="@doc.IdDoctor" class="btn btn-warning">Detalle</a><a asp-controller="Doctores" asp-action="Delete" asp-route-iddoctor="@doc.IdDoctor" class="btn btn-danger">Eliminar</a></td>
+				<td><a asp-controller="Doctores" asp-action="Detalles" asp-route-iddoctor="@doc.IdDoctor" class="btn btn-warning">Detalle</a><a asp-controller="Doctores" asp-action="Delete" asp-route-iddoctor="@doc.IdDoctor" class="btn btn-danger">Eliminar</a><a asp-controller="Doctores" asp-action="Update" asp-route-iddoctor="@doc.IdDoctor" class="btn btn-success">Modificar</a></td>
 			</tr>
 		}
 	</tbody>
